@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, StatusBar, TouchableOpacity } from 'react-native';
+import { View, Text, StatusBar, TouchableOpacity, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
@@ -9,10 +9,7 @@ import globalStyles, { colors } from '../styles';
 interface ICategoryDTO {
     id: number;
     name: string;
-    image?: string;
-    price?: number;
-    id_category?: number;
-    category?: string;
+    image: string;
 }
 
 let categories: ICategoryDTO[] = [];
@@ -23,7 +20,7 @@ async function getCategories() {
         .catch((error) => console.log(error));
 }
 
-const Categories = ({ name, id }: ICategoryDTO) => {
+const Categories = ({ name, id, image }: ICategoryDTO) => {
 
     const navigation = useNavigation();
 
@@ -35,9 +32,10 @@ const Categories = ({ name, id }: ICategoryDTO) => {
         <TouchableOpacity onPress={() => handleNavigateToProductsList(id, name)}>
             <View style={{ flex: 1, backgroundColor: colors.white, flexDirection: 'row', marginHorizontal: 16, marginVertical: 4, marginBottom: 15, borderRadius: 20, paddingVertical: 20, paddingHorizontal: 24, justifyContent: 'center' }}>
 
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{ flexDirection: 'row', margin: 'auto' }}>
+                    <Image source={{ uri: image }} style={{ width: 75, height: 75, borderRadius: 10, marginRight: 25 }} />
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 16 }}>{name}</Text>
+                        <Text style={{ fontSize: 16, width: 200 }}>{name}</Text>
                     </View>
                 </View>
 
@@ -66,7 +64,7 @@ export default function ProductsList() {
                     <ScrollView style={{ backgroundColor: colors.background, alignSelf: 'stretch' }}>
                         {
                             categories.map((category: ICategoryDTO) =>
-                                <Categories name={category.name} id={category.id}></Categories>
+                                <Categories id={category.id} name={category.name} image={category.image} ></Categories>
                             )
                         }
                     </ScrollView>

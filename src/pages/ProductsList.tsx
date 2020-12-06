@@ -28,7 +28,7 @@ const Products = ({ name, image, price }: IProductsDTO) => {
             <View style={{ flexDirection: 'row' }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Image source={{ uri: image }} style={{ width: 75, height: 75, borderRadius: 10, marginRight: 25 }} />
-                    <View style={{ flexDirection: 'column' }}>
+                    <View style={{ flexDirection: 'column', width: 200 }}>
                         <Text style={{ fontSize: 16 }}>{name}</Text>
                         <Text style={{ fontSize: 14 }}>{`R$ ${price.toFixed(2)}`}</Text>
                     </View>
